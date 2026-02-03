@@ -21,11 +21,11 @@ const bulkUploadRouter = require('./routes/bulkUpload');
 var cors = require("cors");
 
 // Import logging middleware
-const { 
-  addRequestId, 
-  requestLogger, 
-  errorLogger, 
-  securityLogger 
+const {
+  addRequestId,
+  requestLogger,
+  errorLogger,
+  securityLogger
 } = require('./middleware/requestLogger');
 
 // Import rate limiting middleware
@@ -73,17 +73,17 @@ const corsOptions = {
   origin: function (origin, callback) {
 
     if (!origin) return callback(null, true);
-    
+
 
     if (allowedOrigins.includes(origin)) {
       return callback(null, true);
     }
-    
+
 
     if (process.env.NODE_ENV === 'development' && origin.startsWith('http://localhost:')) {
       return callback(null, true);
     }
-    
+
     // Reject other origins
     const msg = 'The CORS policy for this site does not allow access from the specified Origin.';
     return callback(new Error(msg), false);
@@ -129,13 +129,13 @@ app.use('/api/order-product', orderProductRouter);
 app.use("/api/slugs", slugRouter);
 // app.use("/api/wishlist", wishlistRouter);
 app.use("/api/notifications", notificationsRouter);
-app.use("/api/merchants", merchantRouter); 
+app.use("/api/merchants", merchantRouter);
 app.use("/api/bulk-upload", bulkUploadRouter);
 
 // Health check endpoint (no rate limiting)
 app.get('/health', (req, res) => {
-  res.status(200).json({ 
-    status: 'OK', 
+  res.status(200).json({
+    status: 'OK',
     timestamp: new Date().toISOString(),
     rateLimiting: 'enabled',
     requestId: req.reqId
@@ -171,8 +171,12 @@ app.use((err, req, res, next) => {
 });
 
 const PORT = process.env.PORT || 3001;
-app.listen(PORT, () => {
-  console.log(`Server running on port ${PORT}`);
-  console.log('Rate limiting and request logging enabled for all endpoints');
-  console.log('Logs are being written to server/logs/ directory');
+const HOST = '0.0.0.0'; // Bind to all interfaces for Render
+
+app.listen(PORT, HOST, () => {
+  console.log(`✅ Server running on ${HOST}:${PORT}`);
+  console.log(`✅ Environment: ${process.env.NODE_ENV || 'development'}`);
+  console.log('✅ Rate limiting and request logging enabled for all endpoints');
+  console.log('✅ Logs are being written to server/logs/ directory');
+  console.log(`✅ Health check available at: http://${HOST}:${PORT}/health`);
 });
