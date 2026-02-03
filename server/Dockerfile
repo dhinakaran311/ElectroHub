@@ -20,5 +20,5 @@ COPY . .
 # Expose the port the app runs on
 EXPOSE 3001
 
-# Start command - run migrations and start server
-CMD npx prisma migrate deploy && node app.js
+# Start command - push schema and start server
+CMD npx prisma db push --accept-data-loss && node app.js
