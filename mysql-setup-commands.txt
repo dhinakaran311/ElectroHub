@@ -1,0 +1,3 @@
+CREATE DATABASE IF NOT EXISTS singitronic_nextjs;
+USE singitronic_nextjs;
+SHOW DATABASES;

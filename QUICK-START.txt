@@ -1,0 +1,105 @@
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                    QUICK START GUIDE - 3 SIMPLE STEPS                        ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+📋 STEP 1: CREATE DATABASE IN MYSQL
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+1. Open "MySQL 8.0 Command Line Client" from Windows Start Menu
+2. Enter your MySQL password (usually the password you set during installation)
+3. Copy and paste these 3 commands from "mysql-setup-commands.txt":
+
+   CREATE DATABASE IF NOT EXISTS singitronic_nextjs;
+   USE singitronic_nextjs;
+   SHOW DATABASES;
+
+4. You should see "singitronic_nextjs" in the list ✓
+5. Type "exit" or just close the MySQL window
+
+⚠️  IMPORTANT: If your MySQL username is NOT "root" or has a password:
+   - Edit .env file in project root
+   - Edit .env file in server folder
+   - Change: mysql://root:@localhost to mysql://YOUR_USER:YOUR_PASS@localhost
+
+
+📋 STEP 2: SETUP DATABASE TABLES & DATA
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Open PowerShell/Terminal in this project folder and run these commands:
+
+cd server
+npx prisma migrate dev
+cd utills
+node insertDemoData.js
+cd ..
+
+
+📋 STEP 3: RUN THE APPLICATION
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+
+Terminal 1 (Backend) - Keep this running:
+────────────────────────────────────────
+cd server
+node app.js
+
+You should see: "Server running on port 3001" ✓
+
+
+Terminal 2 (Frontend) - Open NEW terminal window:
+──────────────────────────────────────────────────
+npm run dev
+
+You should see: "Ready on http://localhost:3000" ✓
+
+
+🌐 OPEN IN BROWSER
+━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━━
+Frontend: http://localhost:3000
+Backend:  http://localhost:3001
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                              TROUBLESHOOTING                                  ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+❌ "Can't connect to MySQL server"
+   → Make sure MySQL is running (search "Services" in Windows, find MySQL80)
+   → Check username/password in .env files
+
+❌ "Database 'singitronic_nextjs' does not exist"
+   → Go back to STEP 1 and create the database in MySQL client
+
+❌ "Port 3000/3001 already in use"
+   → Close other apps using these ports
+   → Or change ports in .env files
+
+❌ Prisma migration fails
+   → Make sure you created the database first (STEP 1)
+   → Check .env files have correct MySQL credentials
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                            FILES CREATED FOR YOU                              ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+✓ .env                          (Frontend config)
+✓ server\.env                   (Backend config)
+✓ mysql-setup-commands.txt      (Copy-paste SQL commands)
+✓ SETUP-GUIDE.md               (Detailed guide)
+✓ QUICK-START.txt              (This file)
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                         WHAT'S ALREADY DONE ✓                                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+✓ Node.js dependencies installed (root folder)
+✓ Node.js dependencies installed (server folder)
+✓ .env files created with default MySQL settings
+✓ SQL commands prepared for database creation
+
+
+╔══════════════════════════════════════════════════════════════════════════════╗
+║                          NEXT: DO STEP 1 NOW!                                 ║
+╚══════════════════════════════════════════════════════════════════════════════╝
+
+Open MySQL 8.0 Command Line Client and run the commands from:
+→ mysql-setup-commands.txt
